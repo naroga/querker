@@ -12,7 +12,7 @@ class FileLockStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsAbleToGetLock()
     {
-        $locker = new FileLockStrategy(realpath(__DIR__ . '/../../../../../app/cache/queue-test.bin'));
+        $locker = new FileLockStrategy(__DIR__ . '/../../../../../app/cache/queue-test.bin');
         $locker->clear();
         $fileSize = filesize(__DIR__ . '/../../../../../app/cache/queue-test.bin');
         $rLocker = new \ReflectionObject($locker);
@@ -27,7 +27,7 @@ class FileLockStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsFileLocked()
     {
-        $locker = new FileLockStrategy(realpath(__DIR__ . '/../../../../../app/cache/queue-test.bin'));
+        $locker = new FileLockStrategy(__DIR__ . '/../../../../../app/cache/queue-test.bin');
         $locker->clear();
         $rLocker = new \ReflectionObject($locker);
         $method = $rLocker->getMethod('getFile');
@@ -38,7 +38,7 @@ class FileLockStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testLockReleased()
     {
-        $locker = new FileLockStrategy(realpath(__DIR__ . '/../../../../../app/cache/queue-test.bin'));
+        $locker = new FileLockStrategy(__DIR__ . '/../../../../../app/cache/queue-test.bin');
         $locker->clear();
         $rLocker = new \ReflectionObject($locker);
         $method = $rLocker->getMethod('getFile');
@@ -54,7 +54,7 @@ class FileLockStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testQueueInsert()
     {
-        $locker = new FileLockStrategy(__DIR__ . '/../../../../../app/cache/queue-test3.bin');
+        $locker = new FileLockStrategy(__DIR__ . '/../../../../../app/cache/queue-test.bin');
         $locker->clear();
         $locker->insert('test');
         $first = $locker->extract();
@@ -63,7 +63,7 @@ class FileLockStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testQueueClear()
     {
-        $locker = new FileLockStrategy(realpath(__DIR__ . '/../../../../../app/cache/queue-test.bin'));
+        $locker = new FileLockStrategy(__DIR__ . '/../../../../../app/cache/queue-test.bin');
         $locker->clear();
         $first = $locker->extract();
         $this->assertEquals($first, null);
