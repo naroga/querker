@@ -3,9 +3,7 @@ Querker
 
 ![Travis](https://travis-ci.org/naroga/querker.svg?branch=master)
 
-Querker is both a simple queue manager for tasks and a worker manager. It aggregates `naroga/querker-queue` and
-`naroga/querker-worker` in the same place, so you can manage both your queue and your workers from the
-same place.
+Querker is both a simple queue manager for tasks and a worker manager.
 
 Project requisites
 ------------------
