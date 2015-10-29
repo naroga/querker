@@ -28,8 +28,8 @@ To install querker, use [Composer](https://getcomposer.org):
     
 This will download the querker's code with all its dependencies.
 
-Configuration
--------------
+Usage
+-----
 
 TBD.
 

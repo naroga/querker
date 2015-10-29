@@ -57,7 +57,7 @@ class FileLockStrategy implements StrategyInterface
     }
 
     /** @inheritDoc */
-    public function insert($process, $priority = 1)
+    public function insert($process, \int $priority = 1)
     {
         $fHandler = $this->getFile();
 
