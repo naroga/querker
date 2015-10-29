@@ -1,7 +1,7 @@
 Querker
 =======
 
-Querker is a simple Queue for tasks that can spawn Workers. It aggregates `naroga/querker-queue` and
+Querker is both a simple queue manager for tasks and a worker manager. It aggregates `naroga/querker-queue` and
 `naroga/querker-worker` in the same place, so you can manage both your queue and your workers from the
 same place.
 
