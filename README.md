@@ -1,7 +1,7 @@
 Querker
 =======
 
-![Travis](https://travis-ci.org/naroga/querker.svg?branch=master)
+[![Travis](https://travis-ci.org/naroga/querker.svg?branch=master)](https://travis-ci.org/naroga/querker)
 
 Querker is both a simple queue manager for tasks and a worker manager.
 
