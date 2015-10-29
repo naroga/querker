@@ -2,6 +2,7 @@
 
 namespace Querker\QueueBundle\Strategy;
 
+use Querker\PriorityQueue\PriorityQueue;
 use Querker\QueueBundle\Exception\LockingException;
 use Symfony\Component\Stopwatch\Stopwatch;
 
@@ -15,7 +16,7 @@ class FileLockStrategy implements StrategyInterface
     /**
      * Class constructor
      *
-     * @param string $file File path
+     * @param string $file          File path
      */
     public function __construct($file)
     {
@@ -23,60 +24,108 @@ class FileLockStrategy implements StrategyInterface
     }
 
     /** @inheritDoc */
+    public function clear()
+    {
+        $queue = new PriorityQueue();
+
+        $fHandler = $this->getFile();
+        fwrite($fHandler, serialize($queue));
+        $this->releaseFile($fHandler);
+    }
+
+    /** @inheritDoc */
     public function extract()
     {
-        $watch = new Stopwatch();
-        $watch->start('filelock');
+        $fHandler = $this->getFile();
 
-        $fHandler = fopen($this->file, 'rw');
-        while (!flock($fHandler, LOCK_EX)) {
-            if ($watch->getEvent('filelock')->getDuration() >= (self::MAX_WAIT_TIME * 1000)) {
-                throw new LockingException("Unable to get exclusive lock on file (" . $this->file . ").");
-            }
+        if (filesize($this->file) == 0) {
+            $queue = new PriorityQueue;
+        } else {
+            $queue = unserialize(file_get_contents($this->file));
         }
 
-        $watch->stop('filelock');
-
-        /** @var \SplPriorityQueue $queue */
-        $queue = unserialize(fread($fHandler, filesize($this->file)));
-
-        //Gets the process from the top of the queue.
         $process = $queue->extract();
 
         //Reserializes and writes the queue (without the first process).
+        ftruncate($fHandler, 0);
+        rewind($fHandler);
         fwrite($fHandler, serialize($queue));
 
-        //Releases lock and the file pointer.
-        flock($fHandler, LOCK_UN);
-        fclose($fHandler);
+        $this->releaseFile($fHandler);
 
         return $process;
     }
 
     /** @inheritDoc */
-    public function insert($process, \int $priority = 1)
+    public function insert($process, $priority = 1)
     {
-        $watch = new Stopwatch();
-        $watch->start('filelock');
+        $fHandler = $this->getFile();
 
-        $fHandler = fopen($this->file, 'rw');
-        while (!flock($fHandler, LOCK_EX)) {
-            if ($watch->getEvent('filelock')->getDuration() >= (self::MAX_WAIT_TIME * 1000)) {
-                throw new LockingException("Unable to get exclusive lock on file (" . $this->file . ").");
+        if (filesize($this->file) == 0) {
+            $queue = new PriorityQueue;
+        } else {
+            $queue = unserialize(file_get_contents($this->file));
+        }
+
+        $queue->insert($process, $priority);
+
+        $serializedData = serialize($queue);
+
+        ftruncate($fHandler, 0);
+        rewind($fHandler);
+        //Reserializes and writes the queue.
+        $return = fwrite($fHandler, $serializedData);
+        $this->releaseFile($fHandler);
+    }
+
+    /**
+     * Locks and gets a file handler.
+     *
+     * @return resource             The file handler.
+     * @throws LockingException
+     */
+    private function getFile()
+    {
+        $init = false;
+
+        if (!file_exists($this->file)) {
+            $init = true;
+            touch($this->file);
+        }
+
+        $fHandler = fopen($this->file, 'r+');
+        $block = false;
+
+        $stopWatch = new Stopwatch();
+        $stopWatch->start('querker.filelock.getfile');
+
+        while (!flock($fHandler, LOCK_EX | LOCK_NB, $block)) {
+            if ($block) {
+                if ($stopWatch->getEvent('querker.filelock.getfile')->getDuration() <= self::MAX_WAIT_TIME * 1000) {
+                    sleep(0.1);
+                    continue;
+                } else {
+                    throw new LockingException("Unable to get exclusive lock on file (" . $this->file . ").");
+                }
             }
         }
 
-        $watch->stop('filelock');
+        if ($init) {
+            fwrite($fHandler, serialize(new PriorityQueue()));
+        }
 
-        /** @var \SplPriorityQueue $queue */
-        $queue = unserialize(fread($fHandler, filesize($this->file)));
+        $stopWatch->stop('querker.filelock.getfile');
 
-        //Gets the process from the top of the queue.
-        $queue->insert($process, $priority);
+        return $fHandler;
+    }
 
-        //Reserializes and writes the queue.
-        fwrite($fHandler, serialize($queue));
-
+    /**
+     * Releases a lock and closes the file handler.
+     *
+     * @param $fHandler             The file handler
+     */
+    private function releaseFile($fHandler)
+    {
         //Releases lock and the file pointer.
         flock($fHandler, LOCK_UN);
         fclose($fHandler);
