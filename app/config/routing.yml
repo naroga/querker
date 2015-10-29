@@ -1,0 +1,4 @@
+queue:
+    resource: "@QueueBundle/Resources/config/routing.yml"
+    prefix:   /
+

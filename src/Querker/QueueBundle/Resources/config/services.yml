@@ -1,0 +1,9 @@
+services:
+
+    querker.strategy.filelock:
+        class: Querker\QueueBundle\Strategy\FileLockStrategy
+        arguments: ["%kernel.root_dir%/cache/queue.bin"]
+
+    querker.queue_manager:
+        class: Querker\QueueBundle\Manager\QueueManager
+        arguments: [@querker.strategy.filelock]
