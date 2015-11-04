@@ -1,7 +1,7 @@
 Querker
 =======
 
-[![Travis](https://travis-ci.org/naroga/querker.svg?branch=master)](https://travis-ci.org/naroga/querker)
+[![Travis](https://travis-ci.org/naroga/querker.svg?branch=master)](https://travis-ci.org/naroga/querker) [![Coverage Status](https://coveralls.io/repos/naroga/querker/badge.svg?branch=master&service=github)](https://coveralls.io/github/naroga/querker?branch=master)
 
 Querker is both a simple queue manager for tasks and a worker manager.
 
