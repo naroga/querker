@@ -40,7 +40,7 @@ class QueueManager
      * @param ProcessInterface $process     The process to be added to the queue.
      * @param int $priority                 The priority, an integer (higher number represents a higher priority)
      */
-    public function insert(ProcessInterface $process, \int $priority = 1)
+    public function insert(ProcessInterface $process, $priority = 1)
     {
         $this->queue->insert(serialize($process), $priority);
     }

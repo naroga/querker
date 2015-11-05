@@ -27,5 +27,5 @@ interface StrategyInterface
      * @param int $priority     The priority, an integer (higher number represents a higher priority)
      * @return bool
      */
-    public function insert($process, \int $priority = 1);
+    public function insert($process, $priority = 1);
 }
