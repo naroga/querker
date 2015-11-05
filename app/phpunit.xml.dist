@@ -12,7 +12,6 @@
             <directory>../src/*/*Bundle/Tests</directory>
             <directory>../src/*/Bundle/*Bundle/Tests</directory>
             <directory>../src/*Bundle/Tests</directory>
-            <exclude>../src/*/*Bundle/DependencyInjection</exclude>
         </testsuite>
     </testsuites>
 
