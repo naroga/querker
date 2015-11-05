@@ -6,6 +6,7 @@ install:
     - composer install
 script:
     - mkdir -p build/logs
-    - php bin/phpunit --bootstrap app/bootstrap.php.cache --coverage-clover clover.xml src/
+    - cp app/phpunit.xml.dist app/phpunit.xml
+    - php bin/phpunit --bootstrap app/bootstrap.php.cache --coverage-clover clover.xml -c app/phpunit.xml src/
 after_script:
     - php bin/coveralls
