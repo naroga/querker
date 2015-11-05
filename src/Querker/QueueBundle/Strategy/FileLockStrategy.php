@@ -93,16 +93,21 @@ class FileLockStrategy implements StrategyInterface
         $stopWatch = new Stopwatch();
         $stopWatch->start('querker.filelock.getfile');
 
-        while (!flock($fHandler, LOCK_EX | LOCK_NB, $block)) {
-            if ($block) {
-                if ($stopWatch->getEvent('querker.filelock.getfile')->getDuration() <= self::MAX_WAIT_TIME * 1000) {
-                    sleep(0.1);
-                    continue;
-                } else {
-                    throw new LockingException("Unable to get exclusive lock on file (" . $this->file . ").");
+        $locked = false;
+
+        do {
+            if (!flock($fHandler, LOCK_EX | LOCK_NB, $block)) {
+                if ($block) {
+                    if ($stopWatch->getEvent('querker.filelock.getfile')->getDuration() <= self::MAX_WAIT_TIME * 1000) {
+                        sleep(0.1);
+                    } else {
+                        throw new LockingException("Unable to get exclusive lock on file (" . $this->file . ").");
+                    }
                 }
+            } else {
+                $locked = true;
             }
-        }
+        } while (!$locked);
 
         if ($init) {
             fwrite($fHandler, serialize(new PriorityQueue()));
