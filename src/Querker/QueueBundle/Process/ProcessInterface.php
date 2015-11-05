@@ -9,4 +9,5 @@ namespace Querker\QueueBundle\Process;
 interface ProcessInterface extends \Serializable
 {
     public function execute();
+    public function getOutput();
 }
