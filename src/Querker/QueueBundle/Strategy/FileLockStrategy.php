@@ -6,6 +6,10 @@ use Querker\PriorityQueue\PriorityQueue;
 use Querker\QueueBundle\Exception\LockingException;
 use Symfony\Component\Stopwatch\Stopwatch;
 
+/**
+ * Class FileLockStrategy
+ * @package Querker\QueueBundle\Strategy
+ */
 class FileLockStrategy implements StrategyInterface
 {
     const MAX_WAIT_TIME = 3; //Maximum execution time, in seconds.

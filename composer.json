@@ -19,10 +19,13 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "symfony/psr-http-message-bridge": "^0.2.0",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "~6.1",
+        "psr/http-message": "~1.0",
+        "zendframework/zend-diactoros": "^1.1"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "satooshi/php-coveralls": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

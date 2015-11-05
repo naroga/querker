@@ -2,6 +2,7 @@
 
 namespace Querker\QueueBundle\Manager;
 
+use Querker\QueueBundle\Process\ProcessInterface;
 use Querker\QueueBundle\Strategy\StrategyInterface;
 
 /**
@@ -30,17 +31,16 @@ class QueueManager
      */
     public function extract()
     {
-        return $this->queue->extract();
+        return unserialize($this->queue->extract());
     }
 
     /**
      * Adds a process to the queue.
      *
-     * @param object $process   The process to be added to the queue.
-     * @param int $priority     The priority, an integer (higher number represents a higher priority)
-     * @return bool
+     * @param ProcessInterface $process     The process to be added to the queue.
+     * @param int $priority                 The priority, an integer (higher number represents a higher priority)
      */
-    public function insert($process, \int $priority = 1)
+    public function insert(ProcessInterface $process, \int $priority = 1)
     {
         $this->queue->insert(serialize($process), $priority);
     }

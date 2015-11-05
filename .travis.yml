@@ -1,6 +1,10 @@
 language: php
 php:
-  - 7.0
+    - 7.0
 install:
-   - composer install
-script: phpunit --bootstrap app/bootstrap.php.cache src/
+    - composer install
+script:
+    - mkdir -p build/logs
+    - phpunit --bootstrap app/bootstrap.php.cache --coverage-clover clover.xml src/
+after_script:
+    - php bin/coveralls
