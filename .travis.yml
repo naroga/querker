@@ -9,3 +9,5 @@ script:
     - chmod 777 build/logs
     - cp app/phpunit.xml.dist app/phpunit.xml
     - php bin/phpunit --bootstrap app/bootstrap.php.cache --coverage-clover build/logs/clover.xml -c app/phpunit.xml src/
+after_script:
+    - php bin/coveralls -v
