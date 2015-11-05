@@ -76,7 +76,7 @@ class FileLockStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($first, null);
     }
 
-    public function testShenanigans()
+    public function testQueueRepoDeletedInRuntime()
     {
         $fs = new Filesystem();
 

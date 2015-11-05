@@ -42,12 +42,7 @@ class FileLockStrategy implements StrategyInterface
     {
         $fHandler = $this->getFile();
 
-        if (filesize($this->file) == 0) {
-            $queue = new PriorityQueue;
-        } else {
-            $queue = unserialize(file_get_contents($this->file));
-        }
-
+        $queue = unserialize(file_get_contents($this->file));
         $process = $queue->extract();
 
         //Reserializes and writes the queue (without the first process).
@@ -65,12 +60,7 @@ class FileLockStrategy implements StrategyInterface
     {
         $fHandler = $this->getFile();
 
-        if (filesize($this->file) == 0) {
-            $queue = new PriorityQueue;
-        } else {
-            $queue = unserialize(file_get_contents($this->file));
-        }
-
+        $queue = unserialize(file_get_contents($this->file));
         $queue->insert($process, $priority);
 
         $serializedData = serialize($queue);
