@@ -31,6 +31,11 @@ Usage
 
 TBD.
 
+FAQ
+---
+
+See common questions in the [FAQ](src/AppBundle/Resources/docs/FAQ.md) file.
+
 License
 -------
 
