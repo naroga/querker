@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b28dcf02917e3ffa8870970e0e7987a5",
-    "content-hash": "29e7ad53c66caa880f2b4fa2c2be3de6",
+    "hash": "c2ce4afa18c75c9ffa7dd50c30e2f870",
+    "content-hash": "a7b84fdced1ee6cac4ed3037488f0350",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -435,16 +435,16 @@
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineCacheBundle.git",
-                "reference": "34fce1cd7bc74634fc119f8bf985a137087927d2"
+                "reference": "3233bc78e222d528ca89a6a47d48d6f37888e95e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/34fce1cd7bc74634fc119f8bf985a137087927d2",
-                "reference": "34fce1cd7bc74634fc119f8bf985a137087927d2",
+                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/3233bc78e222d528ca89a6a47d48d6f37888e95e",
+                "reference": "3233bc78e222d528ca89a6a47d48d6f37888e95e",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +452,7 @@
                 "doctrine/inflector": "~1.0",
                 "php": ">=5.3.2",
                 "symfony/doctrine-bridge": "~2.2|~3.0",
-                "symfony/security-acl": "~2.7|~3.0"
+                "symfony/security-acl": "~2.3|~3.0"
             },
             "require-dev": {
                 "instaclick/coding-standard": "~1.1",
@@ -515,7 +515,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-11-04 17:07:43"
+            "time": "2015-11-05 13:48:27"
         },
         {
             "name": "doctrine/inflector",
@@ -2559,60 +2559,6 @@
             "time": "2015-10-02 11:51:59"
         },
         {
-            "name": "symfony/psr-http-message-bridge",
-            "version": "v0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/psr-http-message-bridge.git",
-                "reference": "dc7e308e1dc2898a46776e2221a643cb08315453"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/psr-http-message-bridge/zipball/dc7e308e1dc2898a46776e2221a643cb08315453",
-                "reference": "dc7e308e1dc2898a46776e2221a643cb08315453",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "psr/http-message": "~1.0",
-                "symfony/http-foundation": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7|~3.0"
-            },
-            "suggest": {
-                "zendframework/zend-diactoros": "To use the Zend Diactoros factory"
-            },
-            "type": "symfony-bridge",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Bridge\\PsrHttpMessage\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "PSR HTTP message bridge",
-            "homepage": "http://symfony.com",
-            "keywords": [
-                "http",
-                "http-message",
-                "psr-7"
-            ],
-            "time": "2015-05-29 17:57:12"
-        },
-        {
             "name": "symfony/swiftmailer-bundle",
             "version": "v2.3.8",
             "source": {
@@ -2850,56 +2796,6 @@
                 "templating"
             ],
             "time": "2015-11-05 12:49:06"
-        },
-        {
-            "name": "zendframework/zend-diactoros",
-            "version": "1.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "3f0ce6c0ba2106e018fb514a9f09dbb91eb6bfd0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/3f0ce6c0ba2106e018fb514a9f09dbb91eb6bfd0",
-                "reference": "3f0ce6c0ba2106e018fb514a9f09dbb91eb6bfd0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4",
-                "psr/http-message": "~1.0"
-            },
-            "provide": {
-                "psr/http-message-implementation": "~1.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.6",
-                "squizlabs/php_codesniffer": "^2.3.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev",
-                    "dev-develop": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Zend\\Diactoros\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "PSR HTTP Message implementations",
-            "homepage": "https://github.com/zendframework/zend-diactoros",
-            "keywords": [
-                "http",
-                "psr",
-                "psr-7"
-            ],
-            "time": "2015-10-16 15:24:05"
         }
     ],
     "packages-dev": [
