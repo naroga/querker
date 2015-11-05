@@ -3,6 +3,7 @@
 namespace Querker\QueueBundle\Tests\Strategy;
 
 use Querker\QueueBundle\Strategy\FileLockStrategy;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class FileLockStrategyTest
@@ -73,5 +74,25 @@ class FileLockStrategyTest extends \PHPUnit_Framework_TestCase
         $locker->clear();
         $first = $locker->extract();
         $this->assertEquals($first, null);
+    }
+
+    public function testShenanigans()
+    {
+        $fs = new Filesystem();
+
+        $locker = new FileLockStrategy(__DIR__ . '/../../../../../app/cache/queue-inexisting-file.bin');
+        $locker->clear();
+
+        $fs->remove(__DIR__ . '/../../../../../app/cache/queue-inexisting-file.bin');
+        $this->assertEquals($locker->extract(), null);
+
+        $fs->remove(__DIR__ . '/../../../../../app/cache/queue-inexisting-file.bin');
+        $locker->insert('test');
+        $this->assertEquals($locker->extract(), 'test');
+
+        $locker->insert('test');
+        $fs->remove(__DIR__ . '/../../../../../app/cache/queue-inexisting-file.bin');
+        $this->assertEquals($locker->extract(), null);
+
     }
 }

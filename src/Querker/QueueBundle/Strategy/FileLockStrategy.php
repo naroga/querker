@@ -77,7 +77,7 @@ class FileLockStrategy implements StrategyInterface
 
         ftruncate($fHandler, 0);
         rewind($fHandler);
-        //Reserializes and writes the queue.
+
         $return = fwrite($fHandler, $serializedData);
         $this->releaseFile($fHandler);
     }
