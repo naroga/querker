@@ -20,7 +20,7 @@ class FileLockStrategy implements StrategyInterface
     /**
      * Class constructor
      *
-     * @param string $file          File path
+     * @param string $file File path
      */
     public function __construct($file)
     {
@@ -97,12 +97,10 @@ class FileLockStrategy implements StrategyInterface
 
         do {
             if (!flock($fHandler, LOCK_EX | LOCK_NB, $block)) {
-                if ($block) {
-                    if ($stopWatch->getEvent('querker.filelock.getfile')->getDuration() <= self::MAX_WAIT_TIME * 1000) {
-                        sleep(0.1);
-                    } else {
-                        throw new LockingException("Unable to get exclusive lock on file (" . $this->file . ").");
-                    }
+                if ($block &&
+                    !$stopWatch->getEvent('querker.filelock.getfile')->getDuration() <= self::MAX_WAIT_TIME * 1000
+                ) {
+                    throw new LockingException("Unable to get exclusive lock on file (" . $this->file . ").");
                 }
             } else {
                 $locked = true;
@@ -121,7 +119,7 @@ class FileLockStrategy implements StrategyInterface
     /**
      * Releases a lock and closes the file handler.
      *
-     * @param resource $fHandler     The file handler
+     * @param resource $fHandler The file handler
      */
     private function releaseFile($fHandler)
     {
