@@ -6,7 +6,7 @@ namespace Querker\PriorityQueue;
  * Class PriorityQueue
  * @package Querker\PriorityQueue
  */
-class PriorityQueue implements \Serializable
+class PriorityQueue implements \Serializable, \Countable
 {
     private $data = [];
 

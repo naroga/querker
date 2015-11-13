@@ -12,7 +12,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
  */
 class FileLockStrategy implements StrategyInterface
 {
-    const MAX_WAIT_TIME = 3; //Maximum execution time, in seconds.
+    const MAX_WAIT_TIME = 3; //Maximum wait time, in seconds.
 
     /** @var string */
     private $file = null;
@@ -121,7 +121,7 @@ class FileLockStrategy implements StrategyInterface
     /**
      * Releases a lock and closes the file handler.
      *
-     * @param $fHandler             The file handler
+     * @param resource $fHandler     The file handler
      */
     private function releaseFile($fHandler)
     {

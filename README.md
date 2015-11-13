@@ -22,7 +22,7 @@ Installation
 
 To install querker, use [Composer](https://getcomposer.org):
 
-    $ composer create-project naroga/querker dev-master
+    $ composer create-project naroga/querker -s dev
     
 This will download the querker's code with all its dependencies.
 

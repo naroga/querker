@@ -14,6 +14,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new Querker\QueueBundle\QueueBundle(),
+            new Querker\WorkerBundle\WorkerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
