@@ -7,3 +7,7 @@ services:
     querker.queue_manager:
         class: Querker\QueueBundle\Manager\QueueManager
         arguments: [@querker.strategy.filelock]
+
+    querker.processor:
+        class: Querker\WorkerBundle\Processor\Processor
+        arguments: [@querker.queue_manager, 30, 3]

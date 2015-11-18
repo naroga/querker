@@ -13,6 +13,11 @@ class IntegratedQueueProvider implements QueueProviderInterface
     /** @var QueueManager */
     private $queueManager;
 
+    public function __construct(QueueManager $manager)
+    {
+        $this->queueManager = $manager;
+    }
+
     public function getQueueManager()
     {
         return $this->queueManager;

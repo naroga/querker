@@ -50,12 +50,13 @@ class DaemonWorker implements WorkerInterface
 
     public function start()
     {
-
-        $fHandler = fopen(__DIR__ . '/../../../../app/cache/' . $this->name . '.bin', 'w+');
+        $fileName = __DIR__ . '/../../../../app/cache/' . $this->name . '.bin';
+        $fHandler = fopen($fileName, 'w+'); //w+ truncates the file.
 
         while (!$this->sigterm) {
+            $this->tries = 0;
             $process = $this->getNewProcess();
-            ftruncate($fHandler);
+            ftruncate($fHandler); //guarantees file is truncated before writing.
             fwrite($fHandler, serialize($process));
             $this->process();
         }
@@ -63,7 +64,7 @@ class DaemonWorker implements WorkerInterface
         fclose($fHandler);
 
         $filesystem = new Filesystem();
-        $filesystem->remove(__DIR__ . '/../../../../app/cache/' . $this->name . '.bin');
+        $filesystem->remove($fileName);
     }
 
     public function getNewProcess()
@@ -74,6 +75,7 @@ class DaemonWorker implements WorkerInterface
     private function process()
     {
         $this->tries++;
+        //@todo: Fix this to allow for usage on vendor folders.
         $process = new Process(
             (new PhpExecutableFinder())->find() . realpath(__DIR__ . '/../../../../app/console') .
             ' querker:process ' . $this->name
@@ -100,6 +102,6 @@ class DaemonWorker implements WorkerInterface
 
     public function getStatus()
     {
-        return ['working' => !$this->sigterm];
+        return ['working' => !$this->sigterm, 'name' => $this->getName()];
     }
 }

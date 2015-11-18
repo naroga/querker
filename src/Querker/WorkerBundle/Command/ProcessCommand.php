@@ -18,7 +18,7 @@ class ProcessCommand extends ContainerAwareCommand
         $this
             ->setName('querker:process')
             ->addArgument('process', InputArgument::REQUIRED, 'Process name')
-            ->setDescription('Fires a process up')
+            ->setDescription('Processes a process, by its processor name.')
         ;
     }
 
