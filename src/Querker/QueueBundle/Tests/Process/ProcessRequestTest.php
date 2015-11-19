@@ -25,7 +25,7 @@ class ProcessRequestTest extends \PHPUnit_Framework_TestCase
         $process = new Process((new PhpExecutableFinder())->find() . ' -S 127.0.0.1:1337 -t ' . realpath(__DIR__));
         $process->start();
         sleep(1);
-        $request = new RequestProcess(new Request('GET', 'http://127.0.0.1:1337/InexistingRequest.php'));
+        $request = new RequestProcess(new Request('GET', 'http://127.0.0.1:1337/InexistentRequest.php'));
         $this->assertEquals($request->execute(), false);
         $this->assertEquals($request->getError()['status'], 404);
         $process->stop();

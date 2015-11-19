@@ -31,7 +31,7 @@ class ProcessFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateDefaultProcess()
     {
         $process = ProcessFactory::build(
-            'inexistingprocesstype',
+            'inexistentprocesstype',
             new Request()
         );
 
